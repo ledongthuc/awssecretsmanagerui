@@ -1,4 +1,4 @@
-# AWS Secrets Manager UI
+# awssecretsmanagerui
 
 ## Project setup
 ```
