@@ -58,6 +58,10 @@ export default {
         search: true,
         searchAlign: true,
         showColumns: true,
+        onClickRow: (row) => {
+          console.log(this);
+          this.selectARN(row.ARN);
+        },
       },
       isError: false,
       errorMsg: '',
@@ -95,7 +99,6 @@ export default {
         console.log(error);
         window.setTimeout(this.loadSecrets, 10000);
       });
-      this.selectARN('Test arn');
     },
     ...mapActions('secrets', [
       'selectARN'

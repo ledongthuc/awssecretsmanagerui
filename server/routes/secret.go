@@ -15,4 +15,16 @@ func setupSecretRoutes(g *echo.Group) {
 		}
 		return c.JSON(http.StatusOK, secrets)
 	})
+
+	g.GET("/detail", func(c echo.Context) error {
+		arn := c.QueryParam("arn")
+		if len(arn) == 0 {
+			return echo.NewHTTPError(http.StatusInternalServerError, "Missing selected ARN")
+		}
+		secret, err := actions.GetSecretByARN(arn)
+		if err != nil {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
+		return c.JSON(http.StatusOK, secret)
+	})
 }

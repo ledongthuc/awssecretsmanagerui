@@ -1,15 +1,26 @@
 <template>
-  <SecretTable msg="Welcome to Your Vue.js App" />
+  <component v-bind:is="component">
+  </component>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import SecretTable from './components/SecretTable.vue'
+import SecretForm from './components/SecretForm.vue'
 
 export default {
   name: 'App',
   components: {
     SecretTable,
-  }
+    SecretForm,
+  },
+  computed: mapState({
+    selectedARN: state => state.secrets.selectedARN,
+    component() {
+      if(!this.selectedARN) return "SecretTable";
+      else return "SecretForm";
+    },
+  }),
 }
 </script>
 
