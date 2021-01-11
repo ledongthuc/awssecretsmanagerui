@@ -55,6 +55,7 @@
                 </template>
               </b-tab>
               <b-tab title="Data">
+                <SecretValue />
               </b-tab>
             </b-tabs>
           </b-card>
@@ -69,10 +70,12 @@
 <script>
 import { mapState } from 'vuex'
 import ErrorNotice from './ErrorNotice.vue'
+import SecretValue from './SecretValue.vue'
 
 export default {
   components: {
     ErrorNotice,
+    SecretValue,
   },
   data () {
     return {
@@ -88,12 +91,6 @@ export default {
     }
   },
   computed: {
-    lastRotationDescription() {
-      if(this.data.LastRotatedDate) {
-        return `Last roration: ${this.data.LastRotatedDate}`;
-      }
-      return '';
-    },
     ...mapState({
       selectedARN: state => state.secrets.selectedARN
     }),
