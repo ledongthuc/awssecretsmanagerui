@@ -3,6 +3,7 @@ package routes
 import (
 	"net/http"
 
+	"github.com/aws/aws-sdk-go/service/secretsmanager"
 	"github.com/labstack/echo"
 	"github.com/ledongthuc/awssecretsmanagerui/server/actions"
 )
@@ -34,6 +35,19 @@ func setupSecretRoutes(g *echo.Group) {
 			return echo.NewHTTPError(http.StatusInternalServerError, "Missing selected ARN")
 		}
 		secret, err := actions.GetSecretValueByARN(arn)
+		if err != nil {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
+		return c.JSON(http.StatusOK, secret)
+	})
+
+	g.POST("/value/update", func(c echo.Context) error {
+		var request secretsmanager.PutSecretValueInput
+		err := c.Bind(&request)
+		if err != nil {
+			return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+		}
+		secret, err := actions.UpdateSecretValue(request)
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}

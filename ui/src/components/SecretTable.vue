@@ -59,7 +59,6 @@ export default {
         searchAlign: true,
         showColumns: true,
         onClickRow: (row) => {
-          console.log(this);
           this.selectARN(row.ARN);
         },
       },

@@ -26,3 +26,16 @@ func GetSecretValueByARN(arn string) (secretsmanager.GetSecretValueOutput, error
 	}
 	return *result, nil
 }
+
+func UpdateSecretValue(request secretsmanager.PutSecretValueInput) (secretsmanager.GetSecretValueOutput, error) {
+	setting := GetAWSSetting()
+	svc := secretsmanager.New(session.New(&aws.Config{
+		Region: aws.String(setting.Region),
+	}))
+
+	_, err := svc.PutSecretValue(&request)
+	if err != nil {
+		return secretsmanager.GetSecretValueOutput{}, err
+	}
+	return GetSecretValueByARN(*request.SecretId)
+}

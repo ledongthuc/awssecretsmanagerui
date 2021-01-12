@@ -113,30 +113,12 @@ export default {
           text: result.data.Name,
           active: true,
         });
-        this.loadSecretValue(arn);
       })
       .catch(error => {
         this.isError = true;
         this.errMsg = `Load secret info error: ${error.message}`
         console.log(error);
         window.setTimeout(() => this.loadSecret(arn), 10000);
-      });
-    },
-    loadSecretValue(arn) {
-      let serverHost = "";
-      if(process.env.VUE_APP_SERVER_HOST) {
-        serverHost = process.env.VUE_APP_SERVER_HOST;
-      }
-      const baseURI =  `${serverHost}/api/secrets/value?arn=${arn}`;
-      window.axios.get(baseURI).then((result) => {
-        this.value = result.data
-        this.isError = false;
-        this.errMsg = '';
-      })
-      .catch(error => {
-        this.isError = true;
-        this.errMsg = `Load secret value error: ${error.message}`
-        console.log(error);
       });
     },
   },
