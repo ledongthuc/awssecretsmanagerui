@@ -1,10 +1,10 @@
 <template>
   <div>
+    <b-breadcrumb :items="breadcrumb"></b-breadcrumb>
     <b-container fluid>
-      <b-breadcrumb :items="breadcrumb"></b-breadcrumb>
       <b-row>
         <b-col></b-col>
-        <b-col  cols="8">
+        <b-col cols="8">
           <b-card no-body>
             <b-tabs card>
               <b-tab title="Info" active>
@@ -55,7 +55,7 @@
                 </template>
               </b-tab>
               <b-tab title="Data">
-                <SecretValue />
+                <SecretValue :secretName="data.Name"/>
               </b-tab>
             </b-tabs>
           </b-card>

@@ -14,10 +14,20 @@
       </b-card-text>
 
       <b-card-text v-if="selectedType === 'string'">
-        <b-form-textarea v-model="secretString" rows="3" max-rows="10"></b-form-textarea>
+        <b-form-textarea v-model="secretString" rows="3" max-rows="20"></b-form-textarea>
+        <b-button v-on:click="saveSecretValue" variant="primary" v-bind:disabled="saving">Save</b-button>
       </b-card-text>
 
-      <b-button v-on:click="saveSecretValue" variant="primary" v-bind:disabled="saving">Save</b-button>
+      <b-card-text v-if="selectedType === 'binary'">
+        <p v-if="value.SecretBinary">
+          <a v-bind:download="secretName" v-bind:href="'data:application/octet-stream;base64,' + value.SecretBinary">Download '{{secretName}}'</a>
+        </p>
+        <div>
+          <input type="file" />
+          <b-button v-on:click="uploadSecretValue" variant="primary" v-bind:disabled="saving">Upload</b-button>
+        </div>
+      </b-card-text>
+
     </template>
   </div>
 </template>
@@ -27,6 +37,7 @@ import { mapState } from 'vuex'
 import ErrorNotice from './ErrorNotice.vue'
 
 export default {
+  props: ['secretName'],
   components: {
     ErrorNotice,
   },

@@ -1,7 +1,18 @@
 <template>
   <div>
     <ErrorNotice v-if="isError">{{ errMsg }}</ErrorNotice>
-    <BootstrapTable :columns="columns" :data="data" :options="options"></BootstrapTable>
+    <b-breadcrumb :items="[{text: 'secrets',href: '#'}]"></b-breadcrumb>
+    <b-container fluid>
+      <b-row>
+        <b-col></b-col>
+        <b-col cols="8">
+          <b-card>
+              <BootstrapTable :columns="columns" :data="data" :options="options"></BootstrapTable>
+          </b-card>
+        </b-col>
+        <b-col></b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
