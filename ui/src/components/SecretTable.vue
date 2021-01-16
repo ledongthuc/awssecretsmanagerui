@@ -69,6 +69,7 @@ export default {
         search: true,
         searchAlign: true,
         showColumns: true,
+        classes: ['table-sm', 'table-striped', 'table-hover'],
         onClickRow: (row) => {
           this.selectARN(row.ARN);
         },
