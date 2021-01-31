@@ -15,7 +15,7 @@ func GetListSecrets() ([]*secretsmanager.SecretListEntry, error) {
 
 	index := 0
 	var token *string
-	var secrets []*secretsmanager.SecretListEntry
+	secrets := []*secretsmanager.SecretListEntry{}
 	for ; token != nil || index == 0; index++ {
 		result, err := GetAPageSecrets(svc, token, maxResult)
 		if err != nil {

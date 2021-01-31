@@ -23,7 +23,7 @@
           <a v-bind:download="secretName" v-bind:href="'data:application/octet-stream;base64,' + value.SecretBinary">Download '{{secretName}}'</a>
         </p>
         <div>
-          <input type="file" />
+          <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
           <b-button v-on:click="uploadSecretValue" variant="primary" v-bind:disabled="saving">Upload</b-button>
         </div>
       </b-card-text>
@@ -49,6 +49,7 @@ export default {
         { text: 'Binary', value: 'binary' },
       ],
       value: {},
+      fileUpload: '',
       isError: false,
       errMsg: '',
       saving: false,
@@ -86,7 +87,7 @@ export default {
       }
     },
     saveSecretValue() {
-      this.isError = true;
+      this.isError = false;
       this.errMsg = '';
       this.saving = true;
 
@@ -131,6 +132,44 @@ export default {
         appendToast: true, 
         variant: variant,
       })
-    }
+    },
+    handleFileUpload() {
+      this.fileUpload = this.$refs.file.files[0];
+    },
+    uploadSecretValue() {
+      if(!this.fileUpload) {
+        this.isError = true;
+        this.errMsg = 'Please choose file';
+        return;
+      } 
+
+      this.isError = false;
+      this.errMsg = '';
+      this.saving = true;
+
+      let formData = new FormData();
+      formData.append('file', this.fileUpload);
+      const baseURI =  `${this.serverHost}/api/secrets/value/upload?arn=${this.selectedARN}`;
+      window.axios.post( baseURI, formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+        },
+      ).then(result => {
+        this.value = result.data
+        this.selectedType = (this.value?.SecretBinary !== null && this.value?.SecretBinary !== undefined) ? 'binary' : 'string';
+        this.isError = false;
+        this.errMsg = '';
+        this.fileUpload = '';
+        this.toast('Update successful', 'success');
+      }).catch(error => {
+        this.isError = true;
+        this.errMsg = `upload secret error: ${error?.response?.data?.message ? error.response.data.message : error.message}`
+        console.log(error);
+      }).finally(() => {
+        this.saving = false;
+      });
+    },
   },
 } </script>
