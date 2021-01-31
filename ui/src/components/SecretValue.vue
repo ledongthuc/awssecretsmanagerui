@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import ErrorNotice from './ErrorNotice.vue'
 
 export default {
@@ -71,12 +70,9 @@ export default {
       }
       return serverHost;
     },
-    ...mapState({
-      selectedARN: state => state.secrets.selectedARN
-    }),
   },
   mounted() {
-    this.loadSecretValue(this.selectedARN);
+    this.loadSecretValue(this.$route.query.arn);
   }, 
   methods: {
     beautifyJSON(raw) {

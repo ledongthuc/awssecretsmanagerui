@@ -68,7 +68,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import ErrorNotice from './ErrorNotice.vue'
 import SecretValue from './SecretValue.vue'
 
@@ -82,7 +81,7 @@ export default {
       breadcrumb: [
         {
           text: 'secrets',
-          href: '#'
+          to: { name: 'home' },
         },
       ],
       data: {},
@@ -90,13 +89,8 @@ export default {
       errorMsg: '',
     }
   },
-  computed: {
-    ...mapState({
-      selectedARN: state => state.secrets.selectedARN
-    }),
-  },
   mounted() {
-    this.loadSecret(this.selectedARN);
+    this.loadSecret(this.$route.query.arn);
   }, 
   methods: {
     loadSecret(arn) {

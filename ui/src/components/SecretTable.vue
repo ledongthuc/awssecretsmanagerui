@@ -18,7 +18,6 @@
 
 <script>
 import ErrorNotice from './ErrorNotice.vue'
-import { mapState, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -71,16 +70,13 @@ export default {
         showColumns: true,
         classes: ['table-sm', 'table-striped', 'table-hover'],
         onClickRow: (row) => {
-          this.selectARN(row.ARN);
+          this.$router.push({ name: 'detail', query: { arn: row.ARN } });
         },
       },
       isError: false,
       errorMsg: '',
     }
   },
-  computed: mapState({
-    selectedARN: state => state.secrets.selectedARN
-  }),
   mounted() {
     this.loadSecrets();
   }, 
@@ -111,8 +107,5 @@ export default {
         window.setTimeout(this.loadSecrets, 10000);
       });
     },
-    ...mapActions('secrets', [
-      'selectARN'
-    ]),
   },
 } </script>
