@@ -57,6 +57,9 @@ export default {
   computed: {
     secretString: {
       get: function() {
+        if(!this.value.SecretString) {
+          return '';
+        }
         return this.beautifyJSON(this.value.SecretString)
       },
       set: function(v) {
@@ -90,7 +93,6 @@ export default {
       const baseURI =  `${this.serverHost}/api/secrets/value/update`;
       window.axios.post(baseURI, {
         SecretId: this.value.ARN,
-        SecretBinary: this.value.SecretBinary,
         SecretString: this.value.SecretString,
       }).then((result) => {
         this.value = result.data
@@ -145,7 +147,7 @@ export default {
 
       let formData = new FormData();
       formData.append('file', this.fileUpload);
-      const baseURI =  `${this.serverHost}/api/secrets/value/upload?arn=${this.selectedARN}`;
+      const baseURI =  `${this.serverHost}/api/secrets/value/upload?arn=${this.value.ARN}`;
       window.axios.post( baseURI, formData,
         {
           headers: {
