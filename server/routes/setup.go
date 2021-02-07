@@ -7,4 +7,5 @@ func SetupRoutes(e *echo.Echo) {
 	setupStaticResourceRoutes(e.Group(""))
 	g := e.Group("/api")
 	setupSecretRoutes(g.Group("/secrets"))
+	setupAWSRoutes(g.Group("/aws"))
 }

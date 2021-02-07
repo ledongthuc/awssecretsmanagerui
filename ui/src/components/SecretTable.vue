@@ -6,6 +6,13 @@
       <b-row>
         <b-col></b-col>
         <b-col cols="8">
+          <Regions v-bind:selectedRegion="selectedRegion" @onChange="changeRegion" />
+        </b-col>
+        <b-col></b-col>
+      </b-row>
+      <b-row>
+        <b-col></b-col>
+        <b-col cols="8">
           <b-card>
               <BootstrapTable :columns="columns" :data="data" :options="options"></BootstrapTable>
           </b-card>
@@ -18,13 +25,16 @@
 
 <script>
 import ErrorNotice from './ErrorNotice.vue'
+import Regions from "./Regions.vue";
 
 export default {
   components: {
+    Regions,
     ErrorNotice,
   },
   data () {
     return {
+      selectedRegion: localStorage.getItem('selected_region'),
       columns: [
         {
           field: 'Name',
@@ -81,6 +91,10 @@ export default {
     this.loadSecrets();
   }, 
   methods: {
+    changeRegion(region) {
+      localStorage.setItem('selected_region', region);
+      this.selectedRegion = region;
+    },
     loadSecrets() {
       let serverHost = "";
       if(process.env.VUE_APP_SERVER_HOST) {
