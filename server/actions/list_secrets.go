@@ -6,10 +6,9 @@ import (
 	"github.com/aws/aws-sdk-go/service/secretsmanager"
 )
 
-func GetListSecrets() ([]*secretsmanager.SecretListEntry, error) {
-	setting := GetAWSSetting()
+func GetListSecrets(region string) ([]*secretsmanager.SecretListEntry, error) {
 	svc := secretsmanager.New(session.New(&aws.Config{
-		Region: aws.String(setting.Region),
+		Region: aws.String(region),
 	}))
 	maxResult := int64(100)
 

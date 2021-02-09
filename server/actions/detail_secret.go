@@ -8,10 +8,9 @@ import (
 	"github.com/aws/aws-sdk-go/service/secretsmanager"
 )
 
-func GetSecretByARN(arn string) (secretsmanager.DescribeSecretOutput, error) {
-	setting := GetAWSSetting()
+func GetSecretByARN(region, arn string) (secretsmanager.DescribeSecretOutput, error) {
 	svc := secretsmanager.New(session.New(&aws.Config{
-		Region: aws.String(setting.Region),
+		Region: aws.String(region),
 	}))
 
 	input := &secretsmanager.DescribeSecretInput{

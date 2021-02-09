@@ -11,7 +11,11 @@ import (
 
 func setupSecretRoutes(g *echo.Group) {
 	g.GET("", func(c echo.Context) error {
-		secrets, err := actions.GetListSecrets()
+		region := c.QueryParam("region")
+		if len(region) == 0 {
+			return echo.NewHTTPError(http.StatusInternalServerError, "Missing region")
+		}
+		secrets, err := actions.GetListSecrets(region)
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -23,7 +27,11 @@ func setupSecretRoutes(g *echo.Group) {
 		if len(arn) == 0 {
 			return echo.NewHTTPError(http.StatusInternalServerError, "Missing selected ARN")
 		}
-		secret, err := actions.GetSecretByARN(arn)
+		region := c.QueryParam("region")
+		if len(region) == 0 {
+			return echo.NewHTTPError(http.StatusInternalServerError, "Missing region")
+		}
+		secret, err := actions.GetSecretByARN(region, arn)
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -35,7 +43,11 @@ func setupSecretRoutes(g *echo.Group) {
 		if len(arn) == 0 {
 			return echo.NewHTTPError(http.StatusInternalServerError, "Missing selected ARN")
 		}
-		secret, err := actions.GetSecretValueByARN(arn)
+		region := c.QueryParam("region")
+		if len(region) == 0 {
+			return echo.NewHTTPError(http.StatusInternalServerError, "Missing region")
+		}
+		secret, err := actions.GetSecretValueByARN(region, arn)
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -43,12 +55,17 @@ func setupSecretRoutes(g *echo.Group) {
 	})
 
 	g.POST("/value/update", func(c echo.Context) error {
+		region := c.QueryParam("region")
+		if len(region) == 0 {
+			return echo.NewHTTPError(http.StatusInternalServerError, "Missing region")
+		}
+
 		var request secretsmanager.PutSecretValueInput
 		err := c.Bind(&request)
 		if err != nil {
 			return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 		}
-		secret, err := actions.UpdateSecretValue(request)
+		secret, err := actions.UpdateSecretValue(region, request)
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -59,6 +76,11 @@ func setupSecretRoutes(g *echo.Group) {
 		arn := c.QueryParam("arn")
 		if len(arn) == 0 {
 			return echo.NewHTTPError(http.StatusInternalServerError, "Missing selected ARN")
+		}
+
+		region := c.QueryParam("region")
+		if len(region) == 0 {
+			return echo.NewHTTPError(http.StatusInternalServerError, "Missing region")
 		}
 
 		file, err := c.FormFile("file")
@@ -75,8 +97,7 @@ func setupSecretRoutes(g *echo.Group) {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
 
-		// secretBinary := base64.StdEncoding.EncodeToString(b)
-		secret, err := actions.UpdateSecretValueBinary(arn, b)
+		secret, err := actions.UpdateSecretValueBinary(region, arn, b)
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}

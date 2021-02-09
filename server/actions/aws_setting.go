@@ -6,16 +6,6 @@ import (
 	"github.com/aws/aws-sdk-go/aws/endpoints"
 )
 
-type AWSSetting struct {
-	Region string
-}
-
-func GetAWSSetting() AWSSetting {
-	return AWSSetting{
-		Region: "eu-north-1",
-	}
-}
-
 func GetAWSRegions() ([]string, error) {
 	resolver := endpoints.DefaultResolver()
 	epartitions, ok := resolver.(endpoints.EnumPartitions)

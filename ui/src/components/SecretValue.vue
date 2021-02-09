@@ -52,6 +52,7 @@ export default {
       isError: false,
       errMsg: '',
       saving: false,
+      selectedRegion: this.$route.query.region,
     }
   },
   computed: {
@@ -85,12 +86,34 @@ export default {
         return raw;
       }
     },
+    toast(message, variant = null) {
+      this.$bvToast.toast(message, {
+        title: 'Update',
+        autoHideDelay: 5000,
+        appendToast: true, 
+        variant: variant,
+      })
+    },
+    loadSecretValue(arn) {
+      const baseURI =  `${this.serverHost}/api/secrets/value?arn=${arn}&region=${this.selectedRegion}`;
+      window.axios.get(baseURI).then((result) => {
+        this.value = result.data
+        this.selectedType = (this.value?.SecretBinary !== null && this.value?.SecretBinary !== undefined) ? 'binary' : 'string';
+        this.isError = false;
+        this.errMsg = '';
+      })
+      .catch(error => {
+        this.isError = true;
+        this.errMsg = `Load secret value error: ${error?.response?.data?.message ? error.response.data.message : error.message}`
+        console.log(error);
+      });
+    },
     saveSecretValue() {
       this.isError = false;
       this.errMsg = '';
       this.saving = true;
 
-      const baseURI =  `${this.serverHost}/api/secrets/value/update`;
+      const baseURI =  `${this.serverHost}/api/secrets/value/update?region=${this.selectedRegion}`;
       window.axios.post(baseURI, {
         SecretId: this.value.ARN,
         SecretString: this.value.SecretString,
@@ -109,28 +132,6 @@ export default {
         this.saving = false;
       });
     },
-    loadSecretValue(arn) {
-      const baseURI =  `${this.serverHost}/api/secrets/value?arn=${arn}`;
-      window.axios.get(baseURI).then((result) => {
-        this.value = result.data
-        this.selectedType = (this.value?.SecretBinary !== null && this.value?.SecretBinary !== undefined) ? 'binary' : 'string';
-        this.isError = false;
-        this.errMsg = '';
-      })
-      .catch(error => {
-        this.isError = true;
-        this.errMsg = `Load secret value error: ${error?.response?.data?.message ? error.response.data.message : error.message}`
-        console.log(error);
-      });
-    },
-    toast(message, variant = null) {
-      this.$bvToast.toast(message, {
-        title: 'Update',
-        autoHideDelay: 5000,
-        appendToast: true, 
-        variant: variant,
-      })
-    },
     handleFileUpload() {
       this.fileUpload = this.$refs.file.files[0];
     },
@@ -147,13 +148,8 @@ export default {
 
       let formData = new FormData();
       formData.append('file', this.fileUpload);
-      const baseURI =  `${this.serverHost}/api/secrets/value/upload?arn=${this.value.ARN}`;
-      window.axios.post( baseURI, formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          },
-        },
+      const baseURI =  `${this.serverHost}/api/secrets/value/upload?arn=${this.value.ARN}&region=${this.selectedRegion}`;
+      window.axios.post( baseURI, formData, { headers: { 'Content-Type': 'multipart/form-data' } },
       ).then(result => {
         this.value = result.data
         this.selectedType = (this.value?.SecretBinary !== null && this.value?.SecretBinary !== undefined) ? 'binary' : 'string';

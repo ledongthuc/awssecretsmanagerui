@@ -80,7 +80,7 @@ export default {
         showColumns: true,
         classes: ['table-sm', 'table-striped', 'table-hover'],
         onClickRow: (row) => {
-          this.$router.push({ name: 'detail', query: { arn: row.ARN } });
+          this.$router.push({ name: 'detail', query: { arn: row.ARN, region: this.selectedRegion } });
         },
       },
       isError: false,
@@ -94,13 +94,14 @@ export default {
     changeRegion(region) {
       localStorage.setItem('selected_region', region);
       this.selectedRegion = region;
+      this.loadSecrets();
     },
     loadSecrets() {
       let serverHost = "";
       if(process.env.VUE_APP_SERVER_HOST) {
         serverHost = process.env.VUE_APP_SERVER_HOST;
       }
-      const baseURI =  `${serverHost}/api/secrets`;
+      const baseURI =  `${serverHost}/api/secrets?region=${this.selectedRegion}`;
       window.axios.get(baseURI).then((result) => {
         this.data = result.data.map(item => {
           item.CreatedDate = item.CreatedDate ? window.moment(item.CreatedDate).format('YYYY/MM/DD hh:mm:ss') : null;
@@ -122,4 +123,4 @@ export default {
       });
     },
   },
-} </script>
+ } </script>

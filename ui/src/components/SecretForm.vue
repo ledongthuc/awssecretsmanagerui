@@ -87,6 +87,7 @@ export default {
       data: {},
       isError: false,
       errorMsg: '',
+      selectedRegion: this.$route.query.region,
     }
   },
   mounted() {
@@ -98,7 +99,7 @@ export default {
       if(process.env.VUE_APP_SERVER_HOST) {
         serverHost = process.env.VUE_APP_SERVER_HOST;
       }
-      const baseURI =  `${serverHost}/api/secrets/detail?arn=${arn}`;
+      const baseURI =  `${serverHost}/api/secrets/detail?arn=${arn}&region=${this.selectedRegion}`;
       window.axios.get(baseURI).then((result) => {
         this.data = result.data
         this.isError = false;
