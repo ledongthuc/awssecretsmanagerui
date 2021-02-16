@@ -1,7 +1,7 @@
 # AWS Secrets Manager UI
 
 ## TODO
- - Region selector
+ [x] Region selector
  - Support IBM Carbon
  - Support simple authentication
  - Support oauth 2.0
