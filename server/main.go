@@ -1,36 +1,68 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net"
 	"os"
-	"strconv"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"github.com/labstack/gommon/log"
+	"github.com/pkg/browser"
+
 	"github.com/ledongthuc/awssecretsmanagerui/server/routes"
-	"github.com/webview/webview"
+	"github.com/ledongthuc/awssecretsmanagerui/server/tray"
 )
 
+type arguments struct {
+	Host     string
+	Port     int
+	Headless bool
+}
+
+func parseArguments() (a arguments) {
+	flag.StringVar(&a.Host, "host", "localhost", "Host of service. Default is localhost")
+	flag.IntVar(&a.Port, "port", 0, "Port of service. Default is random free port")
+	flag.BoolVar(&a.Headless, "headless", false, "Disable UI app. Good to deploy/run from server")
+	flag.Parse()
+
+	if a.Port == 0 {
+		var err error
+		if a.Port, err = getFreePort(); err != nil {
+			panic(err)
+		}
+	}
+
+	return a
+}
+
 func main() {
+	a := parseArguments()
+	serverAddr := fmt.Sprintf("%s:%d", a.Host, a.Port)
+
 	e := echo.New()
 	e.Use(middleware.Logger())
 	e.Logger.SetLevel(log.INFO)
 	e.Use(middleware.CORS())
 	e.HideBanner = true
 	routes.SetupRoutes(e)
-	serverAddr := composeServerAddr()
-	go func() {
-		e.Logger.Info(e.Start(serverAddr))
-	}()
 
-	w := webview.New(false)
-	defer w.Destroy()
-	w.SetTitle("AWS Secrets manager")
-	w.SetSize(800, 600, webview.HintNone)
-	w.Navigate("http://" + serverAddr)
-	w.Run()
+	if a.Headless {
+		if err := e.Start(serverAddr); err != nil {
+			panic(err)
+		}
+	} else {
+		go func() {
+			if err := e.Start(serverAddr); err != nil {
+				panic(err)
+			}
+		}()
+
+		url := fmt.Sprintf("http://%s", serverAddr)
+		browser.OpenURL(url)
+		tray.Start(url)
+	}
 }
 
 func composeServerAddr() string {
@@ -38,17 +70,10 @@ func composeServerAddr() string {
 	if host == "" {
 		host = "localhost"
 	}
-	if port == "" {
-		portN, err := GetFreePort()
-		if err != nil {
-			panic("Fail to aquire free port to start service")
-		}
-		port = strconv.Itoa(portN)
-	}
 	return fmt.Sprintf("%s:%s", host, port)
 }
 
-func GetFreePort() (int, error) {
+func getFreePort() (int, error) {
 	addr, err := net.ResolveTCPAddr("tcp", "localhost:0")
 	if err != nil {
 		return 0, err
