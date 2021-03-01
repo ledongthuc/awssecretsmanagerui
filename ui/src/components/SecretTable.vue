@@ -4,20 +4,16 @@
     <b-breadcrumb :items="[{text: 'secrets',href: '#'}]"></b-breadcrumb>
     <b-container fluid>
       <b-row>
-        <b-col></b-col>
-        <b-col cols="8">
+        <b-col cols="12">
           <Regions v-bind:selectedRegion="selectedRegion" @onChange="changeRegion" />
         </b-col>
-        <b-col></b-col>
       </b-row>
       <b-row>
-        <b-col></b-col>
-        <b-col cols="8">
+        <b-col cols="12">
           <b-card>
               <BootstrapTable :columns="columns" :data="data" :options="options"></BootstrapTable>
           </b-card>
         </b-col>
-        <b-col></b-col>
       </b-row>
     </b-container>
   </div>
