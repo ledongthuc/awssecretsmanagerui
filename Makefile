@@ -12,13 +12,15 @@ clean-release:
 	rm -rf $(RELEASE_PATH);
 	mkdir $(RELEASE_PATH);
 
-build: clean-build build-mac build-ui
-
-build-mac: build-mac-server
-
-build-mac-server:
-	cd ./server/ && GOOS=darwin GOARCH=amd64 go build -a -installsuffix cgo -o ../build/$(APP_NAME) .;
+build: clean-build build-ui build-mac
 
 build-ui:
-	cd ./ui/ && npm run build
-	cp -R ./ui/dist ./build/static
+	cd ./ui/ && npm install --save-dev && npm run build
+	cp -R ./ui/dist/* ./server/static/
+
+build-docker:
+	cd ./ui/ && npm install --save-dev && npm run build
+	cp -R ./ui/dist/* ./server/static/
+
+build-mac:
+	cd ./server/ && GOOS=darwin GOARCH=amd64 go build -a -installsuffix cgo -o ../build/$(APP_NAME) .;

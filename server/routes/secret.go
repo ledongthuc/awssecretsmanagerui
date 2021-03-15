@@ -5,7 +5,8 @@ import (
 	"net/http"
 
 	"github.com/aws/aws-sdk-go/service/secretsmanager"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
+
 	"github.com/ledongthuc/awssecretsmanagerui/server/actions"
 )
 

@@ -1,19 +1,19 @@
 package routes
 
 import (
-	"os"
+	"embed"
+	"net/http"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
-func setupStaticResourceRoutes(g *echo.Group) {
-	g.Static("/", getStaticPath())
-}
+func setupStaticResourceRoutes(g *echo.Group, staticResources embed.FS) {
+	var contentHandler = echo.WrapHandler(http.FileServer(http.FS(staticResources)))
+	var contentRewrite = middleware.Rewrite(map[string]string{"/*": "/static/$1"})
 
-func getStaticPath() string {
-	asset, exist := os.LookupEnv("STATIC_PATH")
-	if !exist {
-		asset = "static/"
-	}
-	return asset
+	g.GET("", contentHandler, contentRewrite)
+	g.GET("/js/*", contentHandler, contentRewrite)
+	g.GET("/css/*", contentHandler, contentRewrite)
+	g.GET("/icons/*", contentHandler, contentRewrite)
 }
