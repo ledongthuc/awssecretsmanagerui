@@ -9,8 +9,7 @@ FROM golang:1.16 as gobuilder
 WORKDIR /app
 COPY ./server .
 COPY --from=vuebuilder /app/dist ./static
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ../build/aws-secrets-manager-ui .;
-
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./aws-secrets-manager-ui .;
 
 FROM alpine:latest  
 RUN apk --no-cache add ca-certificates
