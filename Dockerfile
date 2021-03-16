@@ -16,4 +16,5 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 COPY --from=gobuilder /app/aws-secrets-manager-ui .
 EXPOSE 3000
+ENV HOST 0.0.0.0
 CMD ["./aws-secrets-manager-ui"] 
