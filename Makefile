@@ -19,8 +19,7 @@ build-ui:
 	cp -R ./ui/dist/* ./server/static/
 
 build-docker:
-	cd ./ui/ && npm install --save-dev && npm run build
-	cp -R ./ui/dist/* ./server/static/
+	docker build -f Dockerfile -t awssecretsmanagerui:latest .;
 
 build-mac:
 	cd ./server/ && GOOS=darwin GOARCH=amd64 go build -a -installsuffix cgo -o ../build/$(APP_NAME) .;
