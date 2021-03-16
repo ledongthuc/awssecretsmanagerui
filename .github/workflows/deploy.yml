@@ -8,11 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2  
-      # - name: Login to DockerHub
-      #   uses: docker/login-action@v1 
-      #   with:
-      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build
       id: docker_build
       uses: docker/build-push-action@v2
@@ -20,5 +15,10 @@ jobs:
         context: .
         load: true
         tags: ledongthuc/awssecretsmanagerui:latest
-      # - name: Push
-      #   run: docker push ledongthuc/mathgen-web:latest
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Push
+      run: docker push ledongthuc/awssecretsmanagerui:latest
