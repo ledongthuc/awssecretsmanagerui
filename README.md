@@ -2,7 +2,8 @@
 A Web application to manage AWS Secrets manager
 
 ## Features
- - Listing secrets grid with rich attributes
+ - Listing secrets grid with many columns
+ - Support region switching
  - Secrets attributes sorting
  - All grid column searching
  - Editing text-based secrets directly
@@ -43,12 +44,10 @@ System serve through `localhost:3000`
 
 
 ## TODO
- - [x] Region selector
- - [ ] Support IBM Carbon
- - [ ] Support simple authentication
- - [ ] Support OAuth 2.0
- - [ ] Support filter by tags
  - [ ] Local storage sort, filter, search
- - [ ] Loading state
+ - [ ] Update docker to build with HEADLESS
+ - [ ] Release macapp
+ - [ ] Support IBM Carbon
+ - [ ] Support filter by tags
  - [ ] Create new secret
  - [ ] Delete secret
