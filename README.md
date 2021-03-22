@@ -44,8 +44,8 @@ System serve through `localhost:3000`
 
 
 ## TODO
- - [ ] Local storage sort, filter, search
  - [ ] Update docker to build with HEADLESS
+ - [ ] Local storage sort, filter, search
  - [ ] Release macapp
  - [ ] Support IBM Carbon
  - [ ] Support filter by tags

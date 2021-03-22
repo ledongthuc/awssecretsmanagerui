@@ -11,19 +11,18 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
-	"github.com/pkg/browser"
 
 	"github.com/ledongthuc/awssecretsmanagerui/server/routes"
-	"github.com/ledongthuc/awssecretsmanagerui/server/tray"
+	"github.com/ledongthuc/awssecretsmanagerui/server/wrapper"
 )
 
 //go:embed static/*
 var staticResources embed.FS
+var DefaultPort = "30301"
 
 type params struct {
-	Host     string
-	Port     string
-	Headless bool
+	Host string
+	Port string
 }
 
 func main() {
@@ -36,21 +35,13 @@ func main() {
 	routes.SetupRoutes(e, staticResources)
 
 	serverAddr := fmt.Sprintf("%s:%s", p.Host, p.Port)
-	if p.Headless {
+	go func() {
 		if err := e.Start(serverAddr); err != nil {
 			panic(err)
 		}
-	} else {
-		go func() {
-			if err := e.Start(serverAddr); err != nil {
-				panic(err)
-			}
-		}()
+	}()
 
-		url := fmt.Sprintf("http://%s", serverAddr)
-		browser.OpenURL(url)
-		tray.Start(url, staticResources)
-	}
+	wrapper.RunWrapperUI(serverAddr)
 }
 
 func parseParams() params {
@@ -63,20 +54,17 @@ func parseParams() params {
 		p.Host = "localhost"
 	}
 	if p.Port == "" {
-		if !isPortOpen(3000) {
-			p.Port = "3000"
+		if !isPortOpen(DefaultPort) {
+			p.Port = DefaultPort
 		} else {
 			port, err := getFreePort()
 			if err != nil {
 				log.Warn("Can't generate dynamic port", err)
-				p.Port = "3000"
+				p.Port = DefaultPort
 			} else {
 				p.Port = strconv.FormatInt(int64(port), 10)
 			}
 		}
-	}
-	if os.Getenv("HEADLESS") != "" {
-		p.Headless, _ = strconv.ParseBool(os.Getenv("HEADLESS"))
 	}
 	return p
 }
@@ -94,8 +82,8 @@ func getFreePort() (int, error) {
 	return l.Addr().(*net.TCPAddr).Port, nil
 }
 
-func isPortOpen(port int) bool {
-	conn, _ := net.DialTimeout("tcp", net.JoinHostPort("", strconv.FormatInt(int64(port), 10)), 1*time.Second)
+func isPortOpen(port string) bool {
+	conn, _ := net.DialTimeout("tcp", net.JoinHostPort("", port), 1*time.Second)
 	if conn != nil {
 		conn.Close()
 		return true
