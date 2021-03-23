@@ -22,27 +22,18 @@ A Web application to manage AWS Secrets manager
 
 ```
 make build;
-./build/aws-secrets-manager-ui
 ```
 
-System serve through `localhost:3000`
+Binary will available in folder "./build/"
 
-### Docker
+### Install from binary
 
-```
-docker run -p 3000:3000 ledongthuc/awssecretsmanagerui:latest
-```
-System serve through `localhost:3000`
+Download from [Download Page](https://github.com/ledongthuc/awssecretsmanagerui/wiki/Download)
 
-## Configuration
+## Features
 
-### AWS Authentication
+### Support rich table
 
-### Application setting
-
-**Change port**
-
-**Change host binding**
 
 
 ## TODO
