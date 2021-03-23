@@ -1,6 +1,8 @@
 # AWS Secrets Manager UI
 A Web application to manage AWS Secrets manager
 
+[![Test](https://github.com/ledongthuc/awssecretsmanagerui/actions/workflows/deploy.yml/badge.svg)](https://github.com/ledongthuc/awssecretsmanagerui/actions/workflows/deploy.yml)
+
 ## Features
  - Listing secrets grid with many columns
  - Support region switching
