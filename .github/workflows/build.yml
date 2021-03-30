@@ -1,0 +1,27 @@
+name: build
+on:
+  push:
+    branches:
+    - main
+jobs:
+  build:
+    runs-on: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '1.16.2'
+    - name: Install dependencies
+      run: |
+        go version
+        cd server; go mod tidy
+    - name: Run build
+      run: go build . 
+    - name: Run vet & lint
+      run: |
+        cd server
+        go vet .
+        golint .
+    - name: Run testing
+      run: cd server; go test -v

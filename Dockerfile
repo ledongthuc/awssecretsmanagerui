@@ -5,7 +5,7 @@ RUN npm install
 COPY ./ui/ .
 RUN npm run build
 
-FROM golang:1.16 as gobuilder
+FROM golang:1.16.2 as gobuilder
 WORKDIR /app
 COPY ./server .
 COPY --from=vuebuilder /app/dist ./static

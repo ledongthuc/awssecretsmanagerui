@@ -1,9 +1,10 @@
-name: release-docker
+name: release-docker-unstable
 on:
   push:
-    - v1.*
+    branches:
+    - main
 jobs:
-  deploy-docker:
+  deploy-docker-unstable:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2  
@@ -20,4 +21,4 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Push
-      run: docker push ledongthuc/awssecretsmanagerui:latest
+      run: docker push ledongthuc/awssecretsmanagerui:unstable
