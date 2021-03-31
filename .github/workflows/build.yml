@@ -20,11 +20,15 @@ jobs:
         go version
         cd server; go mod tidy
     - name: Run build
-      run: go build . 
+      run: |
+        cd server
+        go build . 
     - name: Run vet & lint
       run: |
         cd server
         go vet .
         golint .
     - name: Run testing
-      run: cd server; go test -v
+      run: |
+        cd server
+        go test -v
