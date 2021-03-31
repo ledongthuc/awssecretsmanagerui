@@ -23,11 +23,6 @@ jobs:
       run: |
         cd server
         go build . 
-    - name: Run vet & lint
-      run: |
-        cd server
-        go vet .
-        golint .
     - name: Run testing
       run: |
         cd server
