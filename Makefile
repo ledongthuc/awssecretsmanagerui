@@ -16,18 +16,5 @@ build-ui:
 	cd ./ui/ && npm install --save-dev && npm run build
 	cp -R ./ui/dist/* ./server/static/
 
-build-mac: clean-build build-ui
-	cd ./server/ && GOOS=darwin GOARCH=amd64 go build -a -installsuffix cgo -o .$(BUILD_PATH)/mac/$(APP_NAME) .;
-
-build: build-mac
-
-release-mac: clean-release build-mac
-	mkdir -p $(RELEASE_PATH)/mac/$(APP_NAME).app/Contents/MacOS
-	mkdir -p $(RELEASE_PATH)/mac/$(APP_NAME).app/Contents/Resources
-	cp ./build_assets/mac/Info.plist $(RELEASE_PATH)/mac/$(APP_NAME).app/Contents/
-	cp ./build_assets/mac/$(APP_NAME).icns $(RELEASE_PATH)/mac/$(APP_NAME).app/Contents/Resources/
-	cp $(BUILD_PATH)/mac/$(APP_NAME) $(RELEASE_PATH)/mac/$(APP_NAME).app/Contents/MacOS/$(APP_NAME)
-
-package-mac: release-mac
-	npm install -g appdmg
-	appdmg build_assets/mac/spec.json release/mac/$(APP_NAME).dmg
+build: clean-build build-ui
+	cd ./server/ && go build -a -installsuffix cgo -o .$(BUILD_PATH)/$(APP_NAME) .;
