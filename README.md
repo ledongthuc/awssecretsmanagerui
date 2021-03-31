@@ -1,4 +1,5 @@
 # AWS Secrets Manager UI
+[![build](https://github.com/ledongthuc/awssecretsmanagerui/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/ledongthuc/awssecretsmanagerui/actions/workflows/build.yml)
 A Web application to manage AWS Secrets manager
 
 [![Test](https://github.com/ledongthuc/awssecretsmanagerui/actions/workflows/deploy.yml/badge.svg)](https://github.com/ledongthuc/awssecretsmanagerui/actions/workflows/deploy.yml)
