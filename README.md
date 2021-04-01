@@ -1,8 +1,9 @@
 # AWS Secrets Manager UI
 [![build](https://github.com/ledongthuc/awssecretsmanagerui/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/ledongthuc/awssecretsmanagerui/actions/workflows/build.yml)
+
 A Web application to manage AWS Secrets manager
 
-![AWS Secrets Manager UI](https://user-images.githubusercontent.com/1828895/113340473-3c090400-932c-11eb-9bb9-7adc43ee4433.png)
+![AWS Secrets Manager UI](https://user-images.githubusercontent.com/1828895/113342648-07e31280-932f-11eb-9949-9a2ec0c08e40.png)
 
 ## Features
  - Listing secrets grid with many columns
@@ -36,6 +37,18 @@ make build;
 ```
 
 Binary will available in folder "./build/". Run it and you can access through http://localhost:30301
+
+## AWS Credential
+
+AWS Secrets Manager UI tool uses AWS configuration credential to authenticate requests. 
+
+### Credential file
+
+More detail: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html
+
+### Credential environment variables
+
+More detail: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
 
 ## Screenshoots
 
