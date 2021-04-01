@@ -2,6 +2,8 @@
 [![build](https://github.com/ledongthuc/awssecretsmanagerui/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/ledongthuc/awssecretsmanagerui/actions/workflows/build.yml)
 A Web application to manage AWS Secrets manager
 
+![AWS Secrets Manager UI](https://user-images.githubusercontent.com/1828895/113340473-3c090400-932c-11eb-9bb9-7adc43ee4433.png)
+
 ## Features
  - Listing secrets grid with many columns
  - Support region switching
@@ -37,6 +39,13 @@ Binary will available in folder "./build/". Run it and you can access through ht
 
 ## Screenshoots
 
+![Table](https://user-images.githubusercontent.com/1828895/113339958-8ccc2d00-932b-11eb-9738-4c7fea424985.png)
+
+![Detail](https://user-images.githubusercontent.com/1828895/113339995-9c4b7600-932b-11eb-80a3-b550ad6893b0.png)
+
+![Text data](https://user-images.githubusercontent.com/1828895/113340032-abcabf00-932b-11eb-9b2b-568f7d443873.png)
+
+![Binary data](https://user-images.githubusercontent.com/1828895/113340095-bc7b3500-932b-11eb-8976-b0c6efdcd02a.png)
 
 ## TODO
  - [ ] Update docker to build with HEADLESS
