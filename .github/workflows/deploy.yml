@@ -1,8 +1,7 @@
 name: release-docker
 on:
-  push:
-    branches:
-    - v0.*
+  release:
+    types: [published]
 jobs:
   deploy-docker:
     runs-on: ubuntu-latest
