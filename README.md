@@ -68,3 +68,8 @@ More detail: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envv
  - [ ] Support filter by tags
  - [ ] Create new secret
  - [ ] Delete secret
+
+# Contributor
+
+ - Thuc Le
+ - sinthithuthao@gmail.com (many thanks for logo)
