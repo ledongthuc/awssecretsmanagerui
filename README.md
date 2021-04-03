@@ -61,7 +61,6 @@ More detail: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envv
 ![Binary data](https://user-images.githubusercontent.com/1828895/113340095-bc7b3500-932b-11eb-8976-b0c6efdcd02a.png)
 
 ## TODO
- - [ ] Update docker to build with HEADLESS
  - [ ] Local storage sort, filter, search
  - [ ] Release macapp
  - [ ] Support IBM Carbon
