@@ -28,6 +28,9 @@ func main() {
 	e.Logger.SetLevel(log.INFO)
 	e.Use(middleware.CORS())
 	e.HideBanner = true
+	if os.Getenv("AUTH_ENABLED") == "true" {
+		e.Use(middleware.BasicAuth(routes.Auth))
+	}
 	routes.SetupRoutes(e, staticResources)
 
 	serverAddr := fmt.Sprintf("%s:%s", p.Host, p.Port)

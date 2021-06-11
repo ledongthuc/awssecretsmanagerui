@@ -50,6 +50,15 @@ More detail: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-file
 
 More detail: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
 
+## Authentication
+
+AWS Secrets manager supports basic auth through two variable environments:
+
+ - `AUTH_ENABLED=true`
+ - `AUTH_ACCOUNTS="{\"admin\":\"5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5\"}"`
+
+`AUTH_ACCOUNTS` define accounts' username and password. Password follows SHA-256, https://emn178.github.io/online-tools/sha256.html
+
 ## Screenshoots
 
 ![Table](https://user-images.githubusercontent.com/1828895/113339958-8ccc2d00-932b-11eb-9738-4c7fea424985.png)
