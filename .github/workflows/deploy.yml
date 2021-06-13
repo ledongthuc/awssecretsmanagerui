@@ -10,12 +10,6 @@ jobs:
     - name: Set release version
       id: vars
       run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
-    - name: DEBUG release version
-      env:
-        RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
-      run: |
-        echo $RELEASE_VERSION
-        echo ${{ steps.vars.outputs.tag }}
     - name: Build
       id: docker_build
       uses: docker/build-push-action@v2
@@ -28,5 +22,7 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Push
+    - name: Push latest
       run: docker push ledongthuc/awssecretsmanagerui:latest
+    - name: Push version
+      run: docker push ledongthuc/awssecretsmanagerui:${{ steps.vars.outputs.tag }}
