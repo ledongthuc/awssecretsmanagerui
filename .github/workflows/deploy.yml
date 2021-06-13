@@ -25,4 +25,6 @@ jobs:
     - name: Push latest
       run: docker push ledongthuc/awssecretsmanagerui:latest
     - name: Push version
-      run: docker push ledongthuc/awssecretsmanagerui:${{ steps.vars.outputs.tag }}
+      run: |
+        docker tag ledongthuc/awssecretsmanagerui:latest ledongthuc/awssecretsmanagerui:${{ steps.vars.outputs.tag }}
+        docker push ledongthuc/awssecretsmanagerui:${{ steps.vars.outputs.tag }}
