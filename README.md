@@ -54,6 +54,13 @@ More detail: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-file
 
 More detail: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
 
+### Minimum Permission
+
+ - Easy policy name: SecretsManagerReadWrite : https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_available-policies.html
+
+ - Or custom action permission: `secretsmanager:*`
+
+
 ## Authentication
 
 Default, AWS Secrets manager UI disable authentication. 
