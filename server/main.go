@@ -9,6 +9,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
 
+	"github.com/ledongthuc/awssecretsmanagerui/server/auth"
 	"github.com/ledongthuc/awssecretsmanagerui/server/routes"
 )
 
@@ -28,10 +29,18 @@ func main() {
 	e.Logger.SetLevel(log.INFO)
 	e.Use(middleware.CORS())
 	e.HideBanner = true
+
+	mainGroup := e.Group("")
 	if os.Getenv("AUTH_ENABLED") == "true" {
-		e.Use(middleware.BasicAuth(routes.Auth))
+		if os.Getenv("AUTH_TYPE") == "auth_basic" {
+			e.Use(middleware.BasicAuth(routes.Auth))
+		} else {
+			routes.SetupLoginRoute(e.Group("/api"))
+			mainGroup.Use(middleware.JWTWithConfig(auth.CreateJWTAuth()))
+		}
 	}
-	routes.SetupRoutes(e, staticResources)
+
+	routes.SetupRoutes(mainGroup, staticResources)
 
 	serverAddr := fmt.Sprintf("%s:%s", p.Host, p.Port)
 	if err := e.Start(serverAddr); err != nil {
