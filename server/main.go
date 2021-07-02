@@ -32,11 +32,12 @@ func main() {
 
 	mainGroup := e.Group("")
 	if os.Getenv("AUTH_ENABLED") == "true" {
-		if os.Getenv("AUTH_TYPE") == "auth_basic" {
-			e.Use(middleware.BasicAuth(routes.Auth))
-		} else {
+		// Temporary, we use auth_basic as default authen method. When login page's implemented, we switch back the login_page as default auth type
+		if os.Getenv("AUTH_TYPE") == "login_form" {
 			routes.SetupLoginRoute(e.Group("/api"))
 			mainGroup.Use(middleware.JWTWithConfig(auth.CreateJWTAuth()))
+		} else {
+			e.Use(middleware.BasicAuth(routes.Auth))
 		}
 	}
 
