@@ -8,13 +8,11 @@ import (
 )
 
 type LoginClaims struct {
-	Sub      string `json:"sub"`
 	Username string `json:"username"`
 	jwt.StandardClaims
 }
 
 type TokenPayload struct {
-	Sub      string `json:"sub"`
 	Username string `json:"username"`
 }
 
@@ -27,6 +25,7 @@ type Token struct {
 func GenerateJWTToken(data TokenPayload, expiry int) (*Token, error) {
 	standardClaims := jwt.StandardClaims{
 		IssuedAt: time.Now().UTC().Unix(),
+		Subject:  data.Username,
 	}
 
 	if expiry != -1 {
@@ -34,7 +33,6 @@ func GenerateJWTToken(data TokenPayload, expiry int) (*Token, error) {
 	}
 
 	t := jwt.NewWithClaims(jwt.SigningMethodHS256, LoginClaims{
-		data.Sub,
 		data.Username,
 		standardClaims,
 	})

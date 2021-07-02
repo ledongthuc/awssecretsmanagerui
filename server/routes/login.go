@@ -34,7 +34,6 @@ func login(c echo.Context) error {
 	}
 
 	payload := actions.TokenPayload{
-		Sub:      loginData.Username,
 		Username: loginData.Username,
 	}
 
