@@ -95,4 +95,4 @@ AWS Secrets manager supports basic auth through two variable environments, in or
 # Contributor
 
  - Thuc Le
- - sinthithuthao@gmail.com (many thanks for logo)
+ - sinthithuthao@gmail.com
