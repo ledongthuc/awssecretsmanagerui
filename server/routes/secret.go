@@ -20,6 +20,11 @@ func setupSecretRoutes(g *echo.Group) {
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
+
+		if len(secrets) == 0 {
+			return echo.NewHTTPError(http.StatusNotFound, "Secrets not found")
+		}
+
 		return c.JSON(http.StatusOK, secrets)
 	})
 
