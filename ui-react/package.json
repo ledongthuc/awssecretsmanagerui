@@ -1,0 +1,24 @@
+{
+  "name": "awssecretsmanagerui",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "fmt": "prettier --write .",
+    "fmt:check": "prettier --check ./**.{json,js,ts,tsx,md}"
+  },
+  "dependencies": {
+    "next": "11.0.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.13",
+    "eslint": "7.30.0",
+    "eslint-config-next": "11.0.1",
+    "typescript": "4.3.5",
+    "prettier": "2.3.1"
+  }
+}
