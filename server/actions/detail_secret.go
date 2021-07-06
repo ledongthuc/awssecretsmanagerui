@@ -28,8 +28,8 @@ func GetSecretByARN(region, arn string) (secretsmanager.DescribeSecretOutput, er
 	}
 	result, err := svc.DescribeSecret(input)
 
-	nameFilters := GetFilterNames()
-	if nameFilters != nil && !CheckNameInList(nameFilters, *result.Name) {
+	filterNames := GetFilterNames()
+	if len(filterNames) > 0 && !CheckNameInList(filterNames, *result.Name) {
 		return secretsmanager.DescribeSecretOutput{}, errors.New("Can't get secret")
 	}
 

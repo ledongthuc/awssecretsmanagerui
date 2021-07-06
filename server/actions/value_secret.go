@@ -18,8 +18,8 @@ func GetSecretValueByARN(region, arn string) (secretsmanager.GetSecretValueOutpu
 	}
 	result, err := svc.GetSecretValue(input)
 
-	nameFilters := GetFilterNames()
-	if nameFilters != nil && !CheckNameInList(nameFilters, *result.Name) {
+	filterNames := GetFilterNames()
+	if len(filterNames) > 0 && !CheckNameInList(filterNames, *result.Name) {
 		return secretsmanager.GetSecretValueOutput{}, errors.New("Can't get secret")
 	}
 
@@ -37,6 +37,10 @@ func UpdateSecretValue(region string, request secretsmanager.PutSecretValueInput
 		Region: aws.String(region),
 	}))
 
+	if _, err := GetSecretByARN(region, *request.SecretId); err != nil {
+		return secretsmanager.GetSecretValueOutput{}, errors.New("Can't update secret")
+	}
+
 	_, err := svc.PutSecretValue(&request)
 	if err != nil {
 		return secretsmanager.GetSecretValueOutput{}, err
@@ -48,6 +52,10 @@ func UpdateSecretValueBinary(region string, arn string, binaryVaue []byte) (secr
 	svc := secretsmanager.New(session.New(&aws.Config{
 		Region: aws.String(region),
 	}))
+
+	if _, err := GetSecretByARN(region, arn); err != nil {
+		return secretsmanager.GetSecretValueOutput{}, errors.New("Can't upload secret")
+	}
 
 	request := secretsmanager.PutSecretValueInput{
 		SecretId:     aws.String(arn),
