@@ -19,7 +19,11 @@ A Web application to manage AWS Secrets manager
 Run:
 
 ```
-docker run -ti -p 30301:30301 -v $HOME/.aws:/root/.aws ledongthuc/awssecretsmanagerui:unstable
+docker run -ti \
+ -p 30301:30301 \
+ -e AWS_ACCESS_KEY_ID=123456789012 \
+ -e AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY \
+ ledongthuc/awssecretsmanagerui:unstable
 ```
 
 Make sure you configure [AWS credential](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html). Then you can access http://localhost:30301
@@ -47,13 +51,22 @@ AWS Secrets Manager UI tool uses AWS configuration credential to authenticate re
 
 More detail: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html
 
-### Credential environment variables
+### Credential environment variables (recommend)
 
 More detail: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
 
+### Minimum Permission
+
+ - Easy policy name: SecretsManagerReadWrite : https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_available-policies.html
+
+ - Or custom action permission: `secretsmanager:*`
+
+
 ## Authentication
 
-AWS Secrets manager supports basic auth through two variable environments:
+Default, AWS Secrets manager UI disable authentication. 
+
+AWS Secrets manager supports basic auth through two variable environments, in order enable it, try with 2 variable environments:
 
  - `AUTH_ENABLED=true`
  - `AUTH_ACCOUNTS="{\"admin\":\"5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5\"}"`
@@ -72,9 +85,10 @@ AWS Secrets manager supports basic auth through two variable environments:
 
 ## TODO
  - [ ] Local storage sort, filter, search
- - [ ] Release macapp
- - [ ] Support IBM Carbon
+ - [ ] Support MoaiJS
  - [ ] Support filter by tags
+ - [ ] All POST API
+ - [ ] Login page
  - [ ] Create new secret
  - [ ] Delete secret
 

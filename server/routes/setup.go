@@ -9,7 +9,7 @@ import (
 )
 
 // SetupRoutes will setup all routes in systems. Sub routs will be manage details by setupXXX function
-func SetupRoutes(e *echo.Echo, staticResources embed.FS) {
+func SetupRoutes(e *echo.Group, staticResources embed.FS) {
 	setupStaticResourceRoutes(e.Group(""), staticResources)
 	g := e.Group("/api")
 	setupSecretRoutes(g.Group("/secrets"))
