@@ -17,6 +17,12 @@ func GetSecretValueByARN(region, arn string) (secretsmanager.GetSecretValueOutpu
 		SecretId: aws.String(arn),
 	}
 	result, err := svc.GetSecretValue(input)
+
+	nameFilters := GetFilterNames()
+	if nameFilters != nil && !CheckNameInList(nameFilters, *result.Name) {
+		return secretsmanager.GetSecretValueOutput{}, errors.New("Can't get secret")
+	}
+
 	if err != nil {
 		return secretsmanager.GetSecretValueOutput{}, err
 	}

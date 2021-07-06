@@ -9,23 +9,23 @@ import (
 	"github.com/aws/aws-sdk-go/service/secretsmanager"
 )
 
-var (
-	nameFilters *secretsmanager.Filter
-)
-
-func init() {
+func GetFilterNames() []string {
 	filterNames := os.Getenv("FILTER_NAMES")
 	if filterNames == "" {
-		return
+		return nil
 	}
 
 	listFilterNames := strings.Split(filterNames, ",")
 	if len(listFilterNames) == 0 {
-		return
+		return nil
 	}
 
+	return listFilterNames
+}
+
+func getFilerNamesSecret(listFilterNames []string) *secretsmanager.Filter {
 	keyName := "name"
-	nameFilters = &secretsmanager.Filter{
+	nameFilters := &secretsmanager.Filter{
 		Key:    &keyName,
 		Values: make([]*string, len(listFilterNames)),
 	}
@@ -33,6 +33,8 @@ func init() {
 	for i := range listFilterNames {
 		nameFilters.Values[i] = &listFilterNames[i]
 	}
+
+	return nameFilters
 }
 
 func GetListSecrets(region string) ([]*secretsmanager.SecretListEntry, error) {
@@ -61,9 +63,16 @@ func GetAPageSecrets(svc *secretsmanager.SecretsManager, token *string, maxResul
 		NextToken:  token,
 	}
 
-	if nameFilters != nil {
+	filerNames := GetFilterNames()
+
+	var filterNamesSecret *secretsmanager.Filter
+	if filerNames != nil {
+		filterNamesSecret = getFilerNamesSecret(filerNames)
+	}
+
+	if filterNamesSecret != nil {
 		input.Filters = []*secretsmanager.Filter{
-			nameFilters,
+			filterNamesSecret,
 		}
 	}
 	result, err := svc.ListSecrets(input)
