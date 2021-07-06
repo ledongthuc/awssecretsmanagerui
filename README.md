@@ -41,7 +41,7 @@ Binary will available in folder "./build/". Run it and you can access through ht
 
 ## AWS Credential
 
-AWS Secrets Manager UI tool uses AWS configuration credential to authenticate requests. 
+AWS Secrets Manager UI tool uses AWS configuration credential to authenticate requests.
 
 ### Credential file
 
@@ -82,3 +82,4 @@ AWS Secrets manager supports basic auth through two variable environments:
 
  - Thuc Le
  - sinthithuthao@gmail.com (many thanks for logo)
+ - [duysmile](github.com/duysmile)
