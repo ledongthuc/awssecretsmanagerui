@@ -64,7 +64,7 @@ More detail: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envv
 
 ## Authentication
 
-Default, AWS Secrets manager UI disable authentication. 
+Default, AWS Secrets manager UI disable authentication.
 
 AWS Secrets manager supports basic auth through two variable environments, in order enable it, try with 2 variable environments:
 
@@ -72,6 +72,15 @@ AWS Secrets manager supports basic auth through two variable environments, in or
  - `AUTH_ACCOUNTS="{\"admin\":\"5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5\"}"`
 
 `AUTH_ACCOUNTS` define accounts' username and password. Password follows SHA-256, https://emn178.github.io/online-tools/sha256.html
+
+## Filter secret by names
+
+Default, AWS Secrets manager UI get all secrets.
+
+AWS Secrets manager support filter secrets by names through variable environment, in order to use it, you can try with variable environment:
+- `FILTER_NAMES=production,development`
+
+`FILTER_NAMES` defines which secrets you want to provide with AWS Secrets manager, each secret name is separated by comma. In the above example, you want to show only secrets with name `production` and `development`.
 
 ## Screenshoots
 
