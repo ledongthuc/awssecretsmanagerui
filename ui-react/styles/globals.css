@@ -1,3 +1,11 @@
+:root {
+  --highlight-4: #5e667c;
+  --highlight-5: #5e667c;
+  --highlight-6: #5e667c;
+  --highlight-7: #343b57;
+  --radius-1: 6px;
+}
+
 html,
 body {
   padding: 0;
