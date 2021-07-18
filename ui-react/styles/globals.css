@@ -3,7 +3,10 @@
   --highlight-5: #5e667c;
   --highlight-6: #5e667c;
   --highlight-7: #343b57;
+  --highlight-8: #49516a;
   --radius-1: 6px;
+  --padding-sm: 16px;
+  --padding-lg: 48px;
 }
 
 html,
