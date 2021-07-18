@@ -1,5 +1,5 @@
 .container {
-  padding: var(--padding-sm) var(--padding-lg);
+  padding: var(--spacing-sm) var(--spacing-lg);
   color: white;
   background-color: var(--highlight-8);
 }
