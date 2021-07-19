@@ -1,0 +1,22 @@
+.container {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  color: white;
+  background-color: var(--highlight-8);
+}
+
+.brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.brand h3 {
+  margin-left: 16px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+}
