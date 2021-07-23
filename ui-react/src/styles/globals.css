@@ -4,9 +4,16 @@
   --highlight-6: #5e667c;
   --highlight-7: #343b57;
   --highlight-8: #49516a;
+  --highlight-9: #343b57;
   --radius-1: 6px;
   --spacing-sm: 16px;
   --spacing-lg: 48px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html,
@@ -19,8 +26,4 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
 }
