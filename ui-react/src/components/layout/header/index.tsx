@@ -1,8 +1,7 @@
 import { Button } from '@moai/core';
-import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import styles from './Header.module.css';
+import styles from './header.module.css';
 
 interface HeaderProps {
 }
@@ -12,8 +11,8 @@ const Brand = () => {
     <Link href="/" passHref >
       <a className={styles.brand}>
         <Image alt="Logo"
-          src="/logo.png"
-          width={31.37}
+          src="/logo.svg"
+          width={36}
           height={36}
         />
         <h3>Secrets Manager</h3>
