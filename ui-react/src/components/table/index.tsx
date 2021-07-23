@@ -1,5 +1,4 @@
-import React from "react";
-import styles from "./Table.module.css";
+import styles from "./table.module.css";
 
 const Table = () => {
   return (

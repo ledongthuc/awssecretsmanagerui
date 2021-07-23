@@ -1,5 +1,4 @@
-import React from "react";
-import styles from "./SearchBar.module.css";
+import styles from "./search-bar.module.css";
 
 const SearchBar = () => {
   return (
