@@ -1,0 +1,51 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  padding: 120px 24px 0;
+  overflow: hidden;
+}
+
+.entry {
+  margin: 0 auto 120px;
+  max-width: 360px;
+  text-align: center;
+}
+
+.heading {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 30px;
+  margin-bottom: 8px;
+  color: var(--highlight-9);
+}
+
+.description {
+  font-size: 14px;
+  line-height: 20px;
+  color: #8991a0;
+}
+
+.formGroup {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.formLabel {
+  display: block;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  margin-bottom: 8px;
+}
+
+.copy {
+  position: fixed;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 24px 0;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  color: #8991a0;
+}

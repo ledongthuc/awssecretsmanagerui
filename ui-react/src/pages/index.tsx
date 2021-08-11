@@ -1,14 +1,17 @@
-import { Button } from '@moai/core';
-import styles from 'styles/home.module.css';
+import Layout from "components/layout"
+import SearchBar from "components/search-bar";
+import Table from "components/table";
+import Pagination from "components/pagination";
+import styles from "styles/home.module.css";
 
 export default function Home() {
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <div className={styles.form}>
-          <Button highlight fill href="/list">Login</Button>
-        </div>
+    <Layout>
+      <div className={styles.container}>
+        <SearchBar />
+        <Table />
+        <Pagination />
       </div>
-    </div>
+    </Layout>
   )
 }

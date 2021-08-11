@@ -11,6 +11,7 @@ class MyDocument extends Document {
     return (
       <Html className="light">
         <Head>
+          <link rel="icon" href="/favicon.ico" />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
