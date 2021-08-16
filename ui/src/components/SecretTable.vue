@@ -76,7 +76,8 @@ export default {
         showColumns: true,
         classes: ['table-sm', 'table-striped', 'table-hover'],
         onClickRow: (row) => {
-          this.$router.push({ name: 'detail', query: { arn: row.ARN, region: this.selectedRegion } });
+          localStorage.setItem('selected_arn', row.ARN);
+          this.$router.push({ name: 'detail' });
         },
       },
       isError: false,

@@ -13,6 +13,7 @@ clean-release:
 	mkdir $(RELEASE_PATH);
 
 build-ui:
+	rm -rf server/static/js/*
 	cd ./ui/ && npm install --save-dev && npm run build
 	cp -R ./ui/dist/* ./server/static/
 

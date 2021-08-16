@@ -50,8 +50,6 @@
                     <div><label class="font-weight-bold">Tags</label></div>
                     <b-table striped hover small :items="data.Tags"></b-table>
                   </b-card-text>
-
-                  <b-button href="#" variant="primary">Back</b-button>
                 </template>
               </b-tab>
               <b-tab title="Data">
@@ -87,11 +85,11 @@ export default {
       data: {},
       isError: false,
       errorMsg: '',
-      selectedRegion: this.$route.query.region,
+      selectedRegion: localStorage.getItem('selected_region'),
     }
   },
   mounted() {
-    this.loadSecret(this.$route.query.arn);
+    this.loadSecret(localStorage.getItem('selected_arn'));
   },
   methods: {
     loadSecret(arn) {

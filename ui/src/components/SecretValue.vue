@@ -52,7 +52,7 @@ export default {
       isError: false,
       errMsg: '',
       saving: false,
-      selectedRegion: this.$route.query.region,
+      selectedRegion: localStorage.getItem('selected_region'),
     }
   },
   computed: {
@@ -76,7 +76,7 @@ export default {
     },
   },
   mounted() {
-    this.loadSecretValue(this.$route.query.arn);
+    this.loadSecretValue(localStorage.getItem('selected_arn'));
   },
   methods: {
     beautifyJSON(raw) {
