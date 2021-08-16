@@ -77,7 +77,7 @@ export default {
   },
   mounted() {
     this.loadSecretValue(this.$route.query.arn);
-  }, 
+  },
   methods: {
     beautifyJSON(raw) {
       try {
@@ -90,13 +90,16 @@ export default {
       this.$bvToast.toast(message, {
         title: 'Update',
         autoHideDelay: 5000,
-        appendToast: true, 
+        appendToast: true,
         variant: variant,
       })
     },
     loadSecretValue(arn) {
-      const baseURI =  `${this.serverHost}/api/secrets/value?arn=${arn}&region=${this.selectedRegion}`;
-      window.axios.get(baseURI).then((result) => {
+      const baseURI =  `${this.serverHost}/api/secrets/value`;
+      window.axios.post(baseURI, {
+        arn,
+        region: this.selectedRegion,
+      }).then((result) => {
         this.value = result.data
         this.selectedType = (this.value?.SecretBinary !== null && this.value?.SecretBinary !== undefined) ? 'binary' : 'string';
         this.isError = false;
@@ -140,7 +143,7 @@ export default {
         this.isError = true;
         this.errMsg = 'Please choose file';
         return;
-      } 
+      }
 
       this.isError = false;
       this.errMsg = '';

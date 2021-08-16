@@ -10,9 +10,23 @@ import (
 	"github.com/ledongthuc/awssecretsmanagerui/server/actions"
 )
 
+type ListSecretRequest struct {
+	Region string `json:"region"`
+}
+
+type GetSecretRequest struct {
+	Region string `json:"region"`
+	Arn    string `json:"arn"`
+}
+
 func setupSecretRoutes(g *echo.Group) {
-	g.GET("", func(c echo.Context) error {
-		region := c.QueryParam("region")
+	g.POST("", func(c echo.Context) error {
+		var body ListSecretRequest
+		if err := c.Bind(&body); err != nil {
+			return echo.NewHTTPError(http.StatusInternalServerError, "Missing region")
+		}
+
+		region := body.Region
 		if len(region) == 0 {
 			return echo.NewHTTPError(http.StatusInternalServerError, "Missing region")
 		}
@@ -24,12 +38,18 @@ func setupSecretRoutes(g *echo.Group) {
 		return c.JSON(http.StatusOK, secrets)
 	})
 
-	g.GET("/detail", func(c echo.Context) error {
-		arn := c.QueryParam("arn")
+	g.POST("/detail", func(c echo.Context) error {
+		var body GetSecretRequest
+		if err := c.Bind(&body); err != nil {
+			return echo.NewHTTPError(http.StatusInternalServerError, "Invalid request")
+		}
+
+		arn := body.Arn
 		if len(arn) == 0 {
 			return echo.NewHTTPError(http.StatusInternalServerError, "Missing selected ARN")
 		}
-		region := c.QueryParam("region")
+
+		region := body.Region
 		if len(region) == 0 {
 			return echo.NewHTTPError(http.StatusInternalServerError, "Missing region")
 		}
@@ -40,12 +60,18 @@ func setupSecretRoutes(g *echo.Group) {
 		return c.JSON(http.StatusOK, secret)
 	})
 
-	g.GET("/value", func(c echo.Context) error {
-		arn := c.QueryParam("arn")
+	g.POST("/value", func(c echo.Context) error {
+		var body GetSecretRequest
+		if err := c.Bind(&body); err != nil {
+			return echo.NewHTTPError(http.StatusInternalServerError, "Invalid request")
+		}
+
+		arn := body.Arn
 		if len(arn) == 0 {
 			return echo.NewHTTPError(http.StatusInternalServerError, "Missing selected ARN")
 		}
-		region := c.QueryParam("region")
+
+		region := body.Region
 		if len(region) == 0 {
 			return echo.NewHTTPError(http.StatusInternalServerError, "Missing region")
 		}

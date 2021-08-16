@@ -92,15 +92,18 @@ export default {
   },
   mounted() {
     this.loadSecret(this.$route.query.arn);
-  }, 
+  },
   methods: {
     loadSecret(arn) {
       let serverHost = "";
       if(process.env.VUE_APP_SERVER_HOST) {
         serverHost = process.env.VUE_APP_SERVER_HOST;
       }
-      const baseURI =  `${serverHost}/api/secrets/detail?arn=${arn}&region=${this.selectedRegion}`;
-      window.axios.get(baseURI).then((result) => {
+      const baseURI =  `${serverHost}/api/secrets/detail`;
+      window.axios.post(baseURI, {
+        arn,
+        region: this.selectedRegion,
+      }).then((result) => {
         this.data = result.data
         this.isError = false;
         this.errMsg = '';
