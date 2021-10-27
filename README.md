@@ -47,13 +47,13 @@ Binary will available in folder "./build/". Run it and you can access through ht
 
 AWS Secrets Manager UI tool uses AWS configuration credential to authenticate requests.
 
-### Credential file
-
-More detail: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html
-
 ### Credential environment variables (recommend)
 
 More detail: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
+
+### Credential file
+
+More detail: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html
 
 ### Minimum Permission
 
@@ -63,6 +63,28 @@ More detail: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envv
 
 
 ## Authentication
+
+### AWS Cognito authentication
+
+Configurations to enable for AWS Cognito
+
+ - `AUTH_ENABLED=true`
+ - `AUTH_TYPE=aws_cognito_auth2`
+ - `AWS_COGNITO_APP_NAME=administrator`: Get from AWS Cognito App configuration
+ - `AWS_COGNITO_REGION=eu-north-1`: Get from AWS Cognito App configuration
+ - `AWS_COGNITO_CLIENT_ID={client_id}`: Get from AWS Cognito App configuration
+ - `AWS_COGNITO_CLIENT_SECRET={secrets}`: Get from AWS Cognito App configuration
+ - `AWS_COGNITO_REDIRECT_URL=http://localhost:30301/cognito/auth`: Redirect URL you want AWS cognito call back
+ - `AWS_COGNITO_ALLOWED_EMAILS=abc@email.com`: Limit accepted users to login. Empty = all
+ - `AWS_COGNITO_LOGIN_URL=https://administrator.auth.eu-north-1.amazoncognito.com/login?...`: Get from AWS Cognito App configuration
+
+AWS Cognito App configurations
+
+![aws_cognito_1](https://user-images.githubusercontent.com/1828895/139128226-5f5b0068-a54e-49b6-80d1-36261476e7d0.png)
+
+![aws_cognito_2](https://user-images.githubusercontent.com/1828895/139128230-bbecb312-3f2e-4fdf-887a-fc089c184ea4.png)
+
+### Basic authenticationBLED
 
 Default, AWS Secrets manager UI disable authentication.
 

@@ -34,9 +34,19 @@ func main() {
 	if os.Getenv("AUTH_ENABLED") == "true" {
 		// Temporary, we use auth_basic as default authen method. When login page's implemented, we switch back the login_page as default auth type
 		if os.Getenv("AUTH_TYPE") == "login_form" {
+			log.Info("Start with login form")
 			routes.SetupLoginRoute(e.Group("/api"))
 			mainGroup.Use(middleware.JWTWithConfig(auth.CreateJWTAuth()))
+		} else if os.Getenv("AUTH_TYPE") == "aws_cognito_auth2" {
+			log.Info("Start with AWS Cognito Auth 2.0")
+			routes.SetupAWSCognitoRoute(e.Group("/cognito"))
+			mainGroup.Use(auth.AWSCognitoMiddleware([]string{
+				"/icons",
+				"/js",
+				"/css",
+			}))
 		} else {
+			log.Info("Start with basic auth")
 			e.Use(middleware.BasicAuth(routes.Auth))
 		}
 	}
