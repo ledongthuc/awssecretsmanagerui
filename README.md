@@ -23,7 +23,7 @@ docker run -ti \
  -p 30301:30301 \
  -e AWS_ACCESS_KEY_ID=123456789012 \
  -e AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY \
- ledongthuc/awssecretsmanagerui:unstable
+ ledongthuc/awssecretsmanagerui:latest
 ```
 
 Make sure you configure [AWS credential](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html). Then you can access http://localhost:30301
