@@ -1,2 +1,14 @@
 .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  color: var(--highlight-3);
+}
+
+.pageControl {
+  display: flex;
+  align-items: center;
 }

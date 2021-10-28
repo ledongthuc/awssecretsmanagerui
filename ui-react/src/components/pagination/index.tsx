@@ -1,9 +1,24 @@
-import styles from "./pagination.module.css";
+import { Button, DivPx, Select } from '@moai/core';
+import { HiArrowLeft, HiArrowRight } from 'react-icons/hi';
+import styles from './pagination.module.css';
 
 const Pagination = () => {
   return (
-    <div className={styles.container}> Pagination </div>
-  )
-}
+    <div className={styles.container}>
+      <span className={styles.text}>1 - 5 of 38</span>
+      <div className={styles.pageControl}>
+        <span className={styles.text}>Page</span>
+        <DivPx size={8} />
+        <Select options={['1', '2', '3'].map(Select.toStringOption)} />
+        <DivPx size={8} />
+        <span className={styles.text}>|</span>
+        <DivPx size={8} />
+        <Button icon={HiArrowLeft} iconLabel="Previous" />
+        <DivPx size={8} />
+        <Button icon={HiArrowRight} iconLabel="Next" />
+      </div>
+    </div>
+  );
+};
 
 export default Pagination;
