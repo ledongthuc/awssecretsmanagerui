@@ -2,10 +2,12 @@ import { Button, DivPx, Select } from '@moai/core';
 import { HiArrowLeft, HiArrowRight } from 'react-icons/hi';
 import styles from './pagination.module.css';
 
+const PAGE_SIZE = 10;
+
 const Pagination = () => {
   return (
     <div className={styles.container}>
-      <span className={styles.text}>1 - 5 of 38</span>
+      <span className={styles.text}>1 - {PAGE_SIZE} of 38</span>
       <div className={styles.pageControl}>
         <span className={styles.text}>Page</span>
         <DivPx size={8} />

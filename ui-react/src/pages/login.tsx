@@ -3,8 +3,7 @@ import { Formik, Field, Form } from 'formik';
 import styles from 'styles/login.module.css';
 import Image from 'next/image';
 import Head from 'next/head';
-import { config } from 'constants/config.const';
-import { pages } from 'constants/sites.const';
+import { config, pages } from 'consts';
 
 const LoginPage = () => {
   return (
@@ -21,7 +20,6 @@ const LoginPage = () => {
         <Formik
           initialValues={{ username: '', password: '' }}
           onSubmit={async (values, { setSubmitting }) => {
-            console.log(JSON.stringify(values, undefined, 2));
             setSubmitting(false);
           }}
         >

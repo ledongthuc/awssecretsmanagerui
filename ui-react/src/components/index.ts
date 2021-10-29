@@ -1,7 +1,8 @@
-import DataTable from './data-table';
-import Pagination from './pagination';
-import SearchBar from './search-bar';
 import Layout from './layout';
-import CodeInput from './code-input';
 
-export { DataTable, Pagination, SearchBar, Layout, CodeInput };
+import DataTable from './home/data-table';
+import Pagination from './home/pagination';
+import SearchBar from './home/search-bar';
+
+export * from './secret';
+export { DataTable, Pagination, SearchBar, Layout };

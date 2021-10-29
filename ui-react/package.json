@@ -5,21 +5,28 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "fmt": "prettier --write .",
-    "fmt:check": "prettier --check ./**.{json,js,ts,tsx,md}"
+    "lint": "eslint --fix .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ./**.{json,js,ts,tsx,md}"
   },
   "dependencies": {
     "@moai/core": "1.4.3",
     "formik": "^2.2.9",
+    "jotai": "^1.4.2",
     "next": "12.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
   "devDependencies": {
     "@types/react": "17.0.33",
-    "eslint": "8.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.2.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^5.2.0",
+    "@typescript-eslint/parser": "^5.2.0",
+    "eslint": "7.32.0",
     "eslint-config-next": "12.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.26.1",
     "prettier": "2.4.1",
     "typescript": "4.4.4"
   }
