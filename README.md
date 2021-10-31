@@ -84,7 +84,7 @@ AWS Cognito App configurations
 
 ![aws_cognito_2](https://user-images.githubusercontent.com/1828895/139128230-bbecb312-3f2e-4fdf-887a-fc089c184ea4.png)
 
-### Basic authenticationBLED
+### Basic authentication
 
 Default, AWS Secrets manager UI disable authentication.
 
