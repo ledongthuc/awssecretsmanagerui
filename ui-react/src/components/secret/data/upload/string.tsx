@@ -48,9 +48,7 @@ export const UploadString = (props: Props) => {
 
   return (
     <Formik
-      initialValues={{
-        string: value
-      }}
+      initialValues={{ string: value }}
       onSubmit={(values) => updateString(values.string)}
     >
       {({ dirty, submitForm }) => (

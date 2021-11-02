@@ -1,11 +1,16 @@
 import { Icon, ProgressCircle, Table, TableColumn, Tooltip } from '@moai/core';
 import { HiCheckCircle, HiXCircle } from 'react-icons/hi';
 import styles from './table.module.css';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAtom } from 'jotai';
 import { date, fetcher } from 'utils';
 import { ENDPOINTS, pages } from 'consts';
-import { detailStore, regionStore } from 'store';
+import {
+  dataSizeStore,
+  detailStore,
+  regionStore,
+  searchValueStore
+} from 'store';
 import { useRouter } from 'next/router';
 import { SecretDetail } from 'type';
 
@@ -71,26 +76,40 @@ const tableColumns = (
 };
 
 const DataTable = () => {
-  const [region] = useAtom(regionStore);
-  const [, setDetail] = useAtom(detailStore);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<SecretDetail[]>([]);
 
+  const [region] = useAtom(regionStore);
+  const [searchValue] = useAtom(searchValueStore);
+  const [, setDetail] = useAtom(detailStore);
+  const [, setDataSize] = useAtom(dataSizeStore);
+
   const router = useRouter();
 
-  const getSecretList = useCallback(async (region: string) => {
-    setLoading(true);
-    const [data, error] = await fetcher.post<SecretDetail[]>(
-      ENDPOINTS.getSecretList,
-      { region }
-    );
-    setLoading(false);
-    if (error) {
-      console.error(error);
-      return;
-    }
-    if (data) setData(data);
-  }, []);
+  const getSecretList = useCallback(
+    async (region: string) => {
+      setLoading(true);
+      const [data, error] = await fetcher.post<SecretDetail[]>(
+        ENDPOINTS.getSecretList,
+        { region }
+      );
+      setLoading(false);
+      if (error) {
+        console.error(error);
+        return;
+      }
+      if (data) {
+        setData(data);
+        setDataSize(data.length);
+      }
+    },
+    [setDataSize]
+  );
+
+  const rows = useMemo(() => {
+    if (!searchValue) return data;
+    return data.filter((r) => r.Name.includes(searchValue));
+  }, [data, searchValue]);
 
   useEffect(() => {
     if (region) getSecretList(region);
@@ -110,7 +129,7 @@ const DataTable = () => {
         </div>
       ) : data.length ? (
         <Table<SecretDetail>
-          rows={data}
+          rows={rows}
           rowKey={(r) => r.ARN}
           columns={tableColumns(changeRouter)}
           fill

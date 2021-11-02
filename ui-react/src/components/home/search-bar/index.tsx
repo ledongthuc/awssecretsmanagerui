@@ -4,7 +4,12 @@ import { ENDPOINTS } from 'consts';
 import { useEffect, useState } from 'react';
 import { HiSearch } from 'react-icons/hi';
 import styles from './search-bar.module.css';
-import { useAtom, regionStore, useRegionStorage } from 'store';
+import {
+  useAtom,
+  regionStore,
+  useRegionStorage,
+  searchValueStore
+} from 'store';
 
 type ServerList = { [id: string]: string };
 
@@ -19,10 +24,13 @@ const getSevers = async () => {
 
 const SearchBar = () => {
   const [loading, setLoading] = useState(false);
+
   const [regions, setRegions] = useState<string[]>([]);
-  const [search, setSearch] = useState('');
   const [regionStorage, setRegionStorage] = useRegionStorage();
   const [region, setRegion] = useAtom(regionStore);
+
+  const [search, setSearch] = useState('');
+  const [, setSearchValue] = useAtom(searchValueStore);
 
   useEffect(() => {
     setLoading(true);
@@ -40,6 +48,13 @@ const SearchBar = () => {
       setLoading(false);
     });
   }, [regionStorage, setRegionStorage, setRegion]);
+
+  useEffect(() => setSearchValue(''), [setSearchValue]);
+
+  const handleSearch = () => setSearchValue(search);
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') handleSearch();
+  };
 
   return (
     <div className={styles.container}>
@@ -68,12 +83,20 @@ const SearchBar = () => {
                 icon={HiSearch}
                 value={search}
                 setValue={setSearch}
+                onKeyPress={handleKeyPress}
               />
             )
           },
           {
             fill: false,
-            element: <Button color={Button.colors.highlight}>Search</Button>
+            element: (
+              <Button
+                color={Button.colors.highlight}
+                onClick={() => handleSearch()}
+              >
+                Search
+              </Button>
+            )
           }
         ]}
       </ButtonGroup>

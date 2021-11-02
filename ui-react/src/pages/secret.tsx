@@ -1,4 +1,4 @@
-import { ProgressCircle, toast } from '@moai/core';
+import { DivPx, Icon, ProgressCircle, toast } from '@moai/core';
 import { DataTab, InfoTab, Layout } from 'components';
 import { ENDPOINTS } from 'consts';
 import { useAtom } from 'jotai';
@@ -7,6 +7,8 @@ import { detailStore } from 'store';
 import styles from 'styles/secret.module.css';
 import { SecretDetail } from 'type';
 import { fetcher } from 'utils';
+import Link from 'next/link';
+import { HiChevronLeft } from 'react-icons/hi';
 
 type TabType = 'info' | 'data';
 
@@ -50,6 +52,13 @@ export default function SecretPage() {
         ) : (
           <Fragment>
             <div className={styles.header}>
+              <Link href="/">
+                <a className={styles.back}>
+                  <Icon component={HiChevronLeft} />
+                  <DivPx size={4} />
+                  <span>Back</span>
+                </a>
+              </Link>
               <div className={styles.tabs}>
                 {(['info', 'data'] as TabType[]).map((_tab) => (
                   <span

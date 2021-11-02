@@ -13,7 +13,6 @@ export type DataType = 'string' | 'binary';
 
 const DataTab = (): JSX.Element => {
   const [type, setType] = useState<DataType>('string');
-  const [value, setValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<SecretValue | null>(null);
   const [detail] = useAtom(detailStore);
@@ -35,10 +34,7 @@ const DataTab = (): JSX.Element => {
     }
     if (data) {
       setData(data);
-      if (data.SecretString) {
-        setValue(data.SecretString || '');
-        setType('string');
-      }
+      if (data.SecretString) setType('string');
       if (data.SecretBinary) setType('binary');
     }
   }, []);
@@ -58,7 +54,7 @@ const DataTab = (): JSX.Element => {
   return type === 'string' ? (
     <UploadString
       arn={data.ARN}
-      value={value}
+      value={data.SecretString || ''}
       setType={setType}
       setData={setData}
     />
