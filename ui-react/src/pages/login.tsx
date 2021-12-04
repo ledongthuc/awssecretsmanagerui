@@ -1,7 +1,6 @@
 import { DivPx, Input, Button } from '@moai/core';
 import { Formik, Field, Form } from 'formik';
 import styles from 'styles/login.module.css';
-import Image from 'next/image';
 import Head from 'next/head';
 import { config, pages } from 'consts';
 
@@ -12,7 +11,7 @@ const LoginPage = () => {
         <title>{pages.login.title}</title>
       </Head>
       <div className={styles.entry}>
-        <Image src="/logo.svg" alt="Logo" width={64} height={64} />
+        <img src="/logo.svg" alt="Logo" width={64} height={64} />
         <DivPx size={48} />
         <h2 className={styles.heading}>Welcome back</h2>
         <span className={styles.description}>Just secure everything!</span>

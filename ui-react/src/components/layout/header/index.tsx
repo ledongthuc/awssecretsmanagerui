@@ -1,12 +1,11 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import styles from './header.module.css';
 
 const Brand = () => {
   return (
     <Link href="/" passHref>
       <a className={styles.brand}>
-        <Image alt="Logo" src="/logo.svg" width={36} height={36} />
+        <img alt="Logo" src="/logo.svg" width={36} height={36} />
         <h3>Secrets Manager</h3>
       </a>
     </Link>
