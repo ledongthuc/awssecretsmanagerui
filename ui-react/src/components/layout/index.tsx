@@ -1,10 +1,9 @@
-import { config } from 'constants/config.const';
+import { config, pages } from 'consts';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import Header from './header';
 import styles from './layout.module.css';
-import { pages } from 'constants/sites.const';
 import { ProgressCircle } from '@moai/core';
 
 interface Props {
@@ -17,7 +16,9 @@ const Layout: React.FC<Props> = (props) => {
 
   useEffect(() => {
     setAuthorization(true);
-    if (isAuthorized === false) router.push(pages.login.path);
+    if (!process.browser) return;
+    if (isAuthorized === false)
+      router.push(pages.login.path);
   }, [isAuthorized, router]);
 
   if (isAuthorized === null) {

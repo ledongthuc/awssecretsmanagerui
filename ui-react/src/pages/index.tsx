@@ -1,17 +1,17 @@
-import Layout from "components/layout"
-import SearchBar from "components/search-bar";
-import Table from "components/table";
-import Pagination from "components/pagination";
-import styles from "styles/home.module.css";
+import { DataTable, Pagination, SearchBar, Layout } from 'components';
+import { DivPx } from '@moai/core';
+import styles from 'styles/home.module.css';
 
 export default function Home() {
   return (
     <Layout>
       <div className={styles.container}>
         <SearchBar />
-        <Table />
+        <DivPx size={24} />
+        <DataTable />
+        <DivPx size={24} />
         <Pagination />
       </div>
     </Layout>
-  )
+  );
 }

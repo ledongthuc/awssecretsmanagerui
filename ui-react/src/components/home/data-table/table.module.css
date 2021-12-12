@@ -1,0 +1,33 @@
+.container {
+  border: 1px solid var(--border-weak);
+  font-size: 14px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.borderCell {
+  border-right: 1px solid var(--border-weak);
+}
+
+.failure {
+  color: var(--failure);
+}
+
+.success {
+  color: var(--success);
+}
+
+.link {
+  font-weight: 600;
+  color: var(--info);
+  cursor: pointer;
+}
+
+.loading {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--highlight-3);
+  font-size: 14px;
+}

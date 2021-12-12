@@ -1,10 +1,8 @@
 import { DivPx, Input, Button } from '@moai/core';
 import { Formik, Field, Form } from 'formik';
 import styles from 'styles/login.module.css';
-import Image from 'next/image';
 import Head from 'next/head';
-import { config } from 'constants/config.const';
-import { pages } from 'constants/sites.const';
+import { config, pages } from 'consts';
 
 const LoginPage = () => {
   return (
@@ -13,7 +11,7 @@ const LoginPage = () => {
         <title>{pages.login.title}</title>
       </Head>
       <div className={styles.entry}>
-        <Image src="/logo.svg" alt="Logo" width={64} height={64} />
+        <img src="/logo.svg" alt="Logo" width={64} height={64} />
         <DivPx size={48} />
         <h2 className={styles.heading}>Welcome back</h2>
         <span className={styles.description}>Just secure everything!</span>
@@ -21,7 +19,6 @@ const LoginPage = () => {
         <Formik
           initialValues={{ username: '', password: '' }}
           onSubmit={async (values, { setSubmitting }) => {
-            console.log(JSON.stringify(values, undefined, 2));
             setSubmitting(false);
           }}
         >

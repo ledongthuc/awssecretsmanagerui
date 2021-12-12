@@ -23,3 +23,10 @@
   flex-direction: row;
   align-items: center;
 }
+
+.logout {
+  border: 0 none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+}

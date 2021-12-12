@@ -1,10 +1,16 @@
 :root {
+  --highlight: #F7F8F9;
+  --highlight-0: #E1E4E8;
+  --highlight-3: #8991A0;
   --highlight-4: #5e667c;
   --highlight-5: #5e667c;
   --highlight-6: #5e667c;
   --highlight-7: #343b57;
   --highlight-8: #49516a;
   --highlight-9: #343b57;
+  --success: #9DCE6C;
+  --failure: #FC918A;
+  --info: #3275F7;
   --radius-1: 6px;
   --spacing-sm: 16px;
   --spacing-lg: 48px;
@@ -26,4 +32,8 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.text-center {
+  text-align: center;
 }

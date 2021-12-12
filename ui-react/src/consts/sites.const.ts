@@ -8,5 +8,9 @@ export const pages = {
   login: {
     title: 'Welcome Back',
     path: '/login'
+  },
+  secret: {
+    title: 'Secret',
+    path: '/secret'
   }
 };
