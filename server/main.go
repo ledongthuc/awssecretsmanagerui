@@ -14,6 +14,8 @@ import (
 )
 
 //go:embed static/*
+//go:embed static/_next/static/chunks/pages/*
+//go:embed static/_next/static/*/*
 var staticResources embed.FS
 var DefaultPort = "30301"
 
@@ -23,6 +25,7 @@ type params struct {
 }
 
 func main() {
+
 	p := parseParams()
 	e := echo.New()
 	e.Use(middleware.Logger())
@@ -41,9 +44,7 @@ func main() {
 			log.Info("Start with AWS Cognito Auth 2.0")
 			routes.SetupAWSCognitoRoute(e.Group("/cognito"))
 			mainGroup.Use(auth.AWSCognitoMiddleware([]string{
-				"/icons",
-				"/js",
-				"/css",
+				"/_next",
 			}))
 		} else {
 			log.Info("Start with basic auth")
