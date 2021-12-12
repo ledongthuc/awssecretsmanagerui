@@ -10,10 +10,11 @@ import (
 
 func setupStaticResourceRoutes(g *echo.Group, staticResources embed.FS) {
 	var contentHandler = echo.WrapHandler(http.FileServer(http.FS(staticResources)))
-	var contentRewrite = middleware.Rewrite(map[string]string{"/*": "/static/$1"})
-
+	var contentRewrite = middleware.Rewrite(map[string]string{
+		"/*": "/static/$1",
+	})
 	g.GET("", contentHandler, contentRewrite)
-	g.GET("/js/*", contentHandler, contentRewrite)
-	g.GET("/css/*", contentHandler, contentRewrite)
-	g.GET("/icons/*", contentHandler, contentRewrite)
+	g.GET("/", contentHandler, contentRewrite)
+	g.GET("/*", contentHandler, contentRewrite)
+	g.GET("/_next/*", contentHandler, contentRewrite)
 }

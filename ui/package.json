@@ -1,50 +1,34 @@
 {
   "name": "awssecretsmanagerui",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "next dev",
+    "build": "next build",
+    "export": "next build && next export",
+    "start": "next start",
+    "lint": "eslint --fix .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ./**.{json,js,ts,tsx,md}"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "bootstrap": "^4.5.3",
-    "bootstrap-table": "^1.18.1",
-    "bootstrap-vue": "^2.21.2",
-    "core-js": "^3.6.5",
-    "jquery": "^3.5.1",
-    "moment": "^2.29.1",
-    "popper.js": "^1.16.1",
-    "vue": "^2.6.11",
-    "vue-router": "^3.5.1"
+    "@moai/core": "1.4.3",
+    "formik": "^2.2.9",
+    "jotai": "^1.4.2",
+    "next": "12.0.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+    "@types/react": "17.0.33",
+    "@typescript-eslint/eslint-plugin": "^5.2.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^5.2.0",
+    "@typescript-eslint/parser": "^5.2.0",
+    "eslint": "7.32.0",
+    "eslint-config-next": "12.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.26.1",
+    "prettier": "2.4.1",
+    "typescript": "4.4.4"
+  }
 }
