@@ -127,4 +127,6 @@ AWS Secrets manager support filter secrets by names through variable environment
 
  - Thuc Le
  - sinthithuthao@gmail.com (many thanks for logo)
- - [duysmile](github.com/duysmile)
+ - [duysmile](https://github.com/duysmile)
+ - [Thinh Le](https://github.com/lqt93)
+ - [Monody Le](https://github.com/monodyle)
